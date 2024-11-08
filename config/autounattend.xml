@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+	<!--https://schneegans.de/windows/unattend-generator/?LanguageMode=Unattended&UILanguage=en-US&Locale=en-US&Keyboard=00000409&GeoLocation=244&ProcessorArchitecture=amd64&BypassRequirementsCheck=true&BypassNetworkCheck=true&ComputerNameMode=Random&CompactOsMode=Default&TimeZoneMode=Implicit&PartitionMode=Interactive&WindowsEditionMode=Unattended&WindowsEdition=pro&UserAccountMode=InteractiveLocal&PasswordExpirationMode=Unlimited&LockoutMode=Default&HideFiles=HiddenSystem&TaskbarSearch=Hide&ShowFileExtensions=true&DisableWidgets=true&ClassicContextMenu=true&LeftTaskbar=true&DeleteTaskbarIcons=true&HideTaskViewButton=true&LaunchToThisPC=true&DisableFastStartup=true&EnableLongPaths=true&NoAutoRebootWithLoggedOnUsers=true&DisableAppSuggestions=true&PreventDeviceEncryption=true&HideEdgeFre=true&MakeEdgeUninstallable=true&WifiMode=Interactive&ExpressSettings=DisableAll&KeysMode=Skip&ColorMode=Custom&SystemColorTheme=Dark&AppsColorTheme=Dark&AccentColor=%236366f1&EnableTransparency=true&WallpaperMode=Solid&WallpaperColor=%236366f1&Remove3DViewer=true&RemoveBingSearch=true&RemoveClipchamp=true&RemoveCopilot=true&RemoveCortana=true&RemoveDevHome=true&RemoveFamily=true&RemoveFeedbackHub=true&RemoveGetHelp=true&RemoveHandwriting=true&RemoveMailCalendar=true&RemoveMaps=true&RemoveMathInputPanel=true&RemoveMixedReality=true&RemoveZuneVideo=true&RemoveNews=true&RemoveNotepadClassic=true&RemoveOffice365=true&RemoveOneDrive=true&RemoveOneNote=true&RemoveOneSync=true&RemoveOpenSSHClient=true&RemoveOutlook=true&RemovePaint=true&RemovePaint3D=true&RemovePeople=true&RemovePhotos=true&RemovePowerAutomate=true&RemovePowerShell2=true&RemovePowerShellISE=true&RemoveQuickAssist=true&RemoveRecall=true&RemoveSkype=true&RemoveSolitaire=true&RemoveSpeech=true&RemoveStepsRecorder=true&RemoveStickyNotes=true&RemoveTeams=true&RemoveGetStarted=true&RemoveToDo=true&RemoveVoiceRecorder=true&RemoveWallet=true&RemoveWeather=true&RemoveFaxAndScan=true&RemoveWindowsHello=true&RemoveZuneMusic=true&RemoveWordPad=true&RemoveXboxApps=true&RemoveYourPhone=true&StartTilesMode=Default&StartPinsMode=Empty&FirstLogonScript0=winget+install+Microsoft.WindowsTerminal+%2D%2Dsilent+%2D%2Ddisable-interactivity+%2D%2Daccept-package-agreements+%2D%2Daccept-source-agreements%0D%0Awinget+install+Microsoft.PowerShell+%2D%2Dsilent+%2D%2Ddisable-interactivity+%2D%2Daccept-package-agreements+%2D%2Daccept-source-agreements%0D%0Awinget+install+Git.Git+%2D%2Dsilent+%2D%2Ddisable-interactivity+%2D%2Daccept-package-agreements+%2D%2Daccept-source-agreements&FirstLogonScriptType0=Ps1&FirstLogonScript1=Set-Location+%24env%3AUSERPROFILE%5CDownloads%0D%0Agit+clone+https%3A%2F%2Fgithub.com%2Flpndev%2Fwpis.git&FirstLogonScriptType1=Ps1&RestartExplorer=true&WdacMode=Skip-->
+	<settings pass="offlineServicing"></settings>
+	<settings pass="windowsPE">
+		<component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<SetupUILanguage>
+				<UILanguage>en-US</UILanguage>
+			</SetupUILanguage>
+			<InputLocale>0409:00000409</InputLocale>
+			<SystemLocale>en-US</SystemLocale>
+			<UILanguage>en-US</UILanguage>
+			<UserLocale>en-US</UserLocale>
+		</component>
+		<component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<UserData>
+				<ProductKey>
+					<Key>VK7JG-NPHTM-C97JM-9MPGT-3V66T</Key>
+				</ProductKey>
+				<AcceptEula>true</AcceptEula>
+			</UserData>
+			<RunSynchronous>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>1</Order>
+					<Path>reg.exe add "HKLM\SYSTEM\Setup\LabConfig" /v BypassTPMCheck /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>2</Order>
+					<Path>reg.exe add "HKLM\SYSTEM\Setup\LabConfig" /v BypassSecureBootCheck /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>3</Order>
+					<Path>reg.exe add "HKLM\SYSTEM\Setup\LabConfig" /v BypassRAMCheck /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+			</RunSynchronous>
+		</component>
+	</settings>
+	<settings pass="generalize"></settings>
+	<settings pass="specialize">
+		<component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<RunSynchronous>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>1</Order>
+					<Path>reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" /v BypassNRO /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>2</Order>
+					<Path>reg.exe load "HKU\DefaultUser" "C:\Users\Default\NTUSER.DAT"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>3</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Policies\Microsoft\Windows\WindowsCopilot" /v TurnOffWindowsCopilot /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>4</Order>
+					<Path>reg.exe unload "HKU\DefaultUser"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>5</Order>
+					<Path>reg.exe delete "HKLM\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe\DevHomeUpdate" /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>6</Order>
+					<Path>cmd.exe /c "del "C:\Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk""</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>7</Order>
+					<Path>cmd.exe /c "del "C:\Windows\System32\OneDriveSetup.exe""</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>8</Order>
+					<Path>cmd.exe /c "del "C:\Windows\SysWOW64\OneDriveSetup.exe""</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>9</Order>
+					<Path>reg.exe load "HKU\DefaultUser" "C:\Users\Default\NTUSER.DAT"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>10</Order>
+					<Path>reg.exe delete "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\Run" /v OneDriveSetup /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>11</Order>
+					<Path>reg.exe unload "HKU\DefaultUser"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>12</Order>
+					<Path>reg.exe delete "HKLM\SOFTWARE\Microsoft\WindowsUpdate\Orchestrator\UScheduler_Oobe\OutlookUpdate" /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>13</Order>
+					<Path>reg.exe add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Communications" /v ConfigureChatAutoInstall /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>14</Order>
+					<Path>powershell.exe -NoProfile -Command "$xml = [xml]::new(); $xml.Load('C:\Windows\Panther\unattend.xml'); $sb = [scriptblock]::Create( $xml.unattend.Extensions.ExtractScript ); Invoke-Command -ScriptBlock $sb -ArgumentList $xml;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>15</Order>
+					<Path>powershell.exe -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Temp\remove-packages.ps1' -Raw | Invoke-Expression;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>16</Order>
+					<Path>powershell.exe -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Temp\remove-caps.ps1' -Raw | Invoke-Expression;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>17</Order>
+					<Path>powershell.exe -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Temp\remove-features.ps1' -Raw | Invoke-Expression;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>18</Order>
+					<Path>net.exe accounts /maxpwage:UNLIMITED</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>19</Order>
+					<Path>reg.exe load "HKU\DefaultUser" "C:\Users\Default\NTUSER.DAT"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>20</Order>
+					<Path>reg.exe add "HKU\DefaultUser\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "HideFileExt" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>21</Order>
+					<Path>reg.exe add "HKU\DefaultUser\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Hidden" /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>22</Order>
+					<Path>reg.exe unload "HKU\DefaultUser"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>23</Order>
+					<Path>reg.exe load "HKU\DefaultUser" "C:\Users\Default\NTUSER.DAT"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>24</Order>
+					<Path>reg.exe add "HKU\DefaultUser\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v ShowTaskViewButton /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>25</Order>
+					<Path>reg.exe unload "HKU\DefaultUser"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>26</Order>
+					<Path>reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v LongPathsEnabled /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>27</Order>
+					<Path>reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v AUOptions /t REG_DWORD /d 4 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>28</Order>
+					<Path>reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoRebootWithLoggedOnUsers /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>29</Order>
+					<Path>reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v HiberbootEnabled /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>30</Order>
+					<Path>reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Dsh" /v AllowNewsAndInterests /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>31</Order>
+					<Path>reg.exe load "HKU\DefaultUser" "C:\Users\Default\NTUSER.DAT"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>32</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "ContentDeliveryAllowed" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>33</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "FeatureManagementEnabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>34</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "OEMPreInstalledAppsEnabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>35</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEnabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>36</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "PreInstalledAppsEverEnabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>37</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SilentInstalledAppsEnabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>38</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SoftLandingEnabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>39</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContentEnabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>40</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-310093Enabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>41</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338387Enabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>42</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338388Enabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>43</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338389Enabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>44</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-338393Enabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>45</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SubscribedContent-353698Enabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>46</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" /v "SystemPaneSuggestionsEnabled" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>47</Order>
+					<Path>reg.exe unload "HKU\DefaultUser"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>48</Order>
+					<Path>reg.exe add "HKLM\Software\Policies\Microsoft\Windows\CloudContent" /v "DisableWindowsConsumerFeatures" /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>49</Order>
+					<Path>reg.exe add "HKLM\SYSTEM\CurrentControlSet\Control\BitLocker" /v "PreventDeviceEncryption" /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>50</Order>
+					<Path>reg.exe load "HKU\DefaultUser" "C:\Users\Default\NTUSER.DAT"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>51</Order>
+					<Path>reg.exe add "HKU\DefaultUser\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarAl /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>52</Order>
+					<Path>reg.exe unload "HKU\DefaultUser"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>53</Order>
+					<Path>reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Edge" /v HideFirstRunExperience /t REG_DWORD /d 1 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>54</Order>
+					<Path>powershell.exe -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\MakeEdgeUninstallable.ps1' -Raw | Invoke-Expression;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>55</Order>
+					<Path>powershell.exe -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\SetStartPins.ps1' -Raw | Invoke-Expression;"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>56</Order>
+					<Path>reg.exe load "HKU\DefaultUser" "C:\Users\Default\NTUSER.DAT"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>57</Order>
+					<Path>reg.exe add "HKU\DefaultUser\SOFTWARE\Microsoft\Windows\DWM" /v ColorPrevalence /t REG_DWORD /d 0 /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>58</Order>
+					<Path>reg.exe unload "HKU\DefaultUser"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>59</Order>
+					<Path>reg.exe load "HKU\DefaultUser" "C:\Users\Default\NTUSER.DAT"</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>60</Order>
+					<Path>reg.exe add "HKU\DefaultUser\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v "UnattendedSetup" /t REG_SZ /d "powershell.exe -NoProfile -Command \"Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\UserOnce.ps1' -Raw | Invoke-Expression;\"" /f</Path>
+				</RunSynchronousCommand>
+				<RunSynchronousCommand wcm:action="add">
+					<Order>61</Order>
+					<Path>reg.exe unload "HKU\DefaultUser"</Path>
+				</RunSynchronousCommand>
+			</RunSynchronous>
+		</component>
+	</settings>
+	<settings pass="auditSystem"></settings>
+	<settings pass="auditUser"></settings>
+	<settings pass="oobeSystem">
+		<component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<InputLocale>0409:00000409</InputLocale>
+			<SystemLocale>en-US</SystemLocale>
+			<UILanguage>en-US</UILanguage>
+			<UserLocale>en-US</UserLocale>
+		</component>
+		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<OOBE>
+				<ProtectYourPC>3</ProtectYourPC>
+				<HideEULAPage>true</HideEULAPage>
+				<HideWirelessSetupInOOBE>false</HideWirelessSetupInOOBE>
+				<HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+			</OOBE>
+			<FirstLogonCommands>
+				<SynchronousCommand wcm:action="add">
+					<Order>1</Order>
+					<CommandLine>cmd.exe /c "powershell.exe -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\unattend-01.ps1' -Raw | Invoke-Expression;" &gt;&gt;"C:\Windows\Setup\Scripts\unattend-01.log" 2&gt;&amp;1"</CommandLine>
+				</SynchronousCommand>
+				<SynchronousCommand wcm:action="add">
+					<Order>2</Order>
+					<CommandLine>cmd.exe /c "powershell.exe -NoProfile -Command "Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\unattend-02.ps1' -Raw | Invoke-Expression;" &gt;&gt;"C:\Windows\Setup\Scripts\unattend-02.log" 2&gt;&amp;1"</CommandLine>
+				</SynchronousCommand>
+			</FirstLogonCommands>
+		</component>
+	</settings>
+	<Extensions xmlns="https://schneegans.de/windows/unattend-generator/">
+		<ExtractScript>
+param(
+    [xml] $Document
+);
+
+$scriptsDir = 'C:\Windows\Setup\Scripts\';
+foreach( $file in $Document.unattend.Extensions.File ) {
+    $path = [System.Environment]::ExpandEnvironmentVariables(
+        $file.GetAttribute( 'path' )
+    );
+    if( $path.StartsWith( $scriptsDir ) ) {
+        mkdir -Path $scriptsDir -ErrorAction 'SilentlyContinue';
+    }
+    $encoding = switch( [System.IO.Path]::GetExtension( $path ) ) {
+        { $_ -in '.ps1', '.xml' } { [System.Text.Encoding]::UTF8; }
+        { $_ -in '.reg', '.vbs', '.js' } { [System.Text.UnicodeEncoding]::new( $false, $true ); }
+        default { [System.Text.Encoding]::Default; }
+    };
+    [System.IO.File]::WriteAllBytes( $path, ( $encoding.GetPreamble() + $encoding.GetBytes( $file.InnerText.Trim() ) ) );
+}
+		</ExtractScript>
+		<File path="C:\Windows\Temp\remove-packages.ps1">
+$selectors = @(
+	'Microsoft.Microsoft3DViewer';
+	'Microsoft.BingSearch';
+	'Clipchamp.Clipchamp';
+	'Microsoft.549981C3F5F10';
+	'Microsoft.Windows.DevHome';
+	'MicrosoftCorporationII.MicrosoftFamily';
+	'Microsoft.WindowsFeedbackHub';
+	'Microsoft.GetHelp';
+	'Microsoft.Getstarted';
+	'microsoft.windowscommunicationsapps';
+	'Microsoft.WindowsMaps';
+	'Microsoft.MixedReality.Portal';
+	'Microsoft.BingNews';
+	'Microsoft.MicrosoftOfficeHub';
+	'Microsoft.Office.OneNote';
+	'Microsoft.OutlookForWindows';
+	'Microsoft.Paint';
+	'Microsoft.MSPaint';
+	'Microsoft.People';
+	'Microsoft.Windows.Photos';
+	'Microsoft.PowerAutomateDesktop';
+	'MicrosoftCorporationII.QuickAssist';
+	'Microsoft.SkypeApp';
+	'Microsoft.MicrosoftSolitaireCollection';
+	'Microsoft.MicrosoftStickyNotes';
+	'MicrosoftTeams';
+	'MSTeams';
+	'Microsoft.Todos';
+	'Microsoft.WindowsSoundRecorder';
+	'Microsoft.Wallet';
+	'Microsoft.BingWeather';
+	'Microsoft.Xbox.TCUI';
+	'Microsoft.XboxApp';
+	'Microsoft.XboxGameOverlay';
+	'Microsoft.XboxGamingOverlay';
+	'Microsoft.XboxIdentityProvider';
+	'Microsoft.XboxSpeechToTextOverlay';
+	'Microsoft.GamingApp';
+	'Microsoft.YourPhone';
+	'Microsoft.ZuneMusic';
+	'Microsoft.ZuneVideo';
+);
+$getCommand = {
+  Get-AppxProvisionedPackage -Online;
+};
+$filterCommand = {
+  $_.DisplayName -eq $selector;
+};
+$removeCommand = {
+  [CmdletBinding()]
+  param(
+    [Parameter( Mandatory, ValueFromPipeline )]
+    $InputObject
+  );
+  process {
+    $InputObject | Remove-AppxProvisionedPackage -AllUsers -Online -ErrorAction 'Continue';
+  }
+};
+$type = 'Package';
+$logfile = 'C:\Windows\Temp\remove-packages.log';
+&amp; {
+	$installed = &amp; $getCommand;
+	foreach( $selector in $selectors ) {
+		$result = [ordered] @{
+			Selector = $selector;
+		};
+		$found = $installed | Where-Object -FilterScript $filterCommand;
+		if( $found ) {
+			$result.Output = $found | &amp; $removeCommand;
+			if( $? ) {
+				$result.Message = "$type removed.";
+			} else {
+				$result.Message = "$type not removed.";
+				$result.Error = $Error[0];
+			}
+		} else {
+			$result.Message = "$type not installed.";
+		}
+		$result | ConvertTo-Json -Depth 3 -Compress;
+	}
+} *&gt;&amp;1 &gt;&gt; $logfile;
+		</File>
+		<File path="C:\Windows\Temp\remove-caps.ps1">
+$selectors = @(
+	'Print.Fax.Scan';
+	'Language.Handwriting';
+	'MathRecognizer';
+	'Microsoft.Windows.Notepad';
+	'Microsoft.Windows.Notepad.System';
+	'OneCoreUAP.OneSync';
+	'OpenSSH.Client';
+	'Microsoft.Windows.MSPaint';
+	'Microsoft.Windows.PowerShell.ISE';
+	'App.Support.QuickAssist';
+	'Language.Speech';
+	'Language.TextToSpeech';
+	'App.StepsRecorder';
+	'Hello.Face.18967';
+	'Hello.Face.Migration.18967';
+	'Hello.Face.20134';
+	'Microsoft.Windows.WordPad';
+);
+$getCommand = {
+  Get-WindowsCapability -Online | Where-Object -Property 'State' -NotIn -Value @(
+    'NotPresent';
+    'Removed';
+  );
+};
+$filterCommand = {
+  ($_.Name -split '~')[0] -eq $selector;
+};
+$removeCommand = {
+  [CmdletBinding()]
+  param(
+    [Parameter( Mandatory, ValueFromPipeline )]
+    $InputObject
+  );
+  process {
+    $InputObject | Remove-WindowsCapability -Online -ErrorAction 'Continue';
+  }
+};
+$type = 'Capability';
+$logfile = 'C:\Windows\Temp\remove-caps.log';
+&amp; {
+	$installed = &amp; $getCommand;
+	foreach( $selector in $selectors ) {
+		$result = [ordered] @{
+			Selector = $selector;
+		};
+		$found = $installed | Where-Object -FilterScript $filterCommand;
+		if( $found ) {
+			$result.Output = $found | &amp; $removeCommand;
+			if( $? ) {
+				$result.Message = "$type removed.";
+			} else {
+				$result.Message = "$type not removed.";
+				$result.Error = $Error[0];
+			}
+		} else {
+			$result.Message = "$type not installed.";
+		}
+		$result | ConvertTo-Json -Depth 3 -Compress;
+	}
+} *&gt;&amp;1 &gt;&gt; $logfile;
+		</File>
+		<File path="C:\Windows\Temp\remove-features.ps1">
+$selectors = @(
+	'MicrosoftWindowsPowerShellV2Root';
+	'Recall';
+);
+$getCommand = {
+  Get-WindowsOptionalFeature -Online | Where-Object -Property 'State' -NotIn -Value @(
+    'Disabled';
+    'DisabledWithPayloadRemoved';
+  );
+};
+$filterCommand = {
+  $_.FeatureName -eq $selector;
+};
+$removeCommand = {
+  [CmdletBinding()]
+  param(
+    [Parameter( Mandatory, ValueFromPipeline )]
+    $InputObject
+  );
+  process {
+    $InputObject | Disable-WindowsOptionalFeature -Online -Remove -NoRestart -ErrorAction 'Continue';
+  }
+};
+$type = 'Feature';
+$logfile = 'C:\Windows\Temp\remove-features.log';
+&amp; {
+	$installed = &amp; $getCommand;
+	foreach( $selector in $selectors ) {
+		$result = [ordered] @{
+			Selector = $selector;
+		};
+		$found = $installed | Where-Object -FilterScript $filterCommand;
+		if( $found ) {
+			$result.Output = $found | &amp; $removeCommand;
+			if( $? ) {
+				$result.Message = "$type removed.";
+			} else {
+				$result.Message = "$type not removed.";
+				$result.Error = $Error[0];
+			}
+		} else {
+			$result.Message = "$type not installed.";
+		}
+		$result | ConvertTo-Json -Depth 3 -Compress;
+	}
+} *&gt;&amp;1 &gt;&gt; $logfile;
+		</File>
+		<File path="C:\Windows\Setup\Scripts\TaskbarIcons.ps1">
+Remove-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband' -Name '*';
+		</File>
+		<File path="C:\Windows\Setup\Scripts\MakeEdgeUninstallable.ps1">
+$ErrorActionPreference = 'Stop';
+&amp; {
+	try {
+		$params = @{
+			LiteralPath = 'C:\Windows\System32\IntegratedServicesRegionPolicySet.json';
+			Encoding = 'Utf8';
+		};
+		$o = Get-Content @params | ConvertFrom-Json;
+		$o.policies | ForEach-Object -Process {
+			if( $_.guid -eq '{1bca278a-5d11-4acf-ad2f-f9ab6d7f93a6}' ) {
+				$_.defaultState = 'enabled';
+			}
+		};
+		$o | ConvertTo-Json -Depth 9 | Out-File @params;
+	} catch {
+		$_;
+	}
+} *&gt;&amp;1 &gt;&gt; 'C:\Windows\Setup\Scripts\MakeEdgeUninstallable.log';
+		</File>
+		<File path="C:\Windows\Setup\Scripts\SetStartPins.ps1">
+$json = '{"pinnedList":[]}';
+if( [System.Environment]::OSVersion.Version.Build -lt 20000 ) {
+	return;
+}
+$key = 'Registry::HKLM\SOFTWARE\Microsoft\PolicyManager\current\device\Start';
+New-Item -Path $key -ItemType 'Directory' -ErrorAction 'SilentlyContinue';
+Set-ItemProperty -LiteralPath $key -Name 'ConfigureStartPins' -Value $json -Type 'String';
+		</File>
+		<File path="C:\Windows\Setup\Scripts\SetColorTheme.ps1">
+$lightThemeSystem = 0;
+$lightThemeApps = 0;
+$accentColorOnStart = 0;
+$enableTransparency = 1;
+$htmlAccentColor = '#6366F1';
+&amp; {
+	$params = @{
+		LiteralPath = 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize';
+		Force = $true;
+		Type = 'DWord';
+	};
+	Set-ItemProperty @params -Name 'SystemUsesLightTheme' -Value $lightThemeSystem;
+	Set-ItemProperty @params -Name 'AppsUseLightTheme' -Value $lightThemeApps;
+	Set-ItemProperty @params -Name 'ColorPrevalence' -Value $accentColorOnStart;
+	Set-ItemProperty @params -Name 'EnableTransparency' -Value $enableTransparency;
+};
+&amp; {
+	Add-Type -AssemblyName 'System.Drawing';
+	$accentColor = [System.Drawing.ColorTranslator]::FromHtml( $htmlAccentColor );
+										
+	function ConvertTo-DWord {
+		param(
+			[System.Drawing.Color]
+			$Color
+		);
+						
+		[byte[]] $bytes = @(
+			$Color.R;
+			$Color.G;
+			$Color.B;
+			$Color.A;
+		);
+		return [System.BitConverter]::ToUInt32( $bytes, 0); 
+	}
+					
+	$startColor = [System.Drawing.Color]::FromArgb( 0xD2, $accentColor );
+	Set-ItemProperty -LiteralPath 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent' -Name 'StartColorMenu' -Value( ConvertTo-DWord -Color $accentColor ) -Type 'DWord' -Force;
+	Set-ItemProperty -LiteralPath 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent' -Name 'AccentColorMenu' -Value( ConvertTo-DWord -Color $accentColor ) -Type 'DWord' -Force;
+	Set-ItemProperty -LiteralPath 'Registry::HKCU\Software\Microsoft\Windows\DWM' -Name 'AccentColor' -Value( ConvertTo-DWord -Color $accentColor ) -Type 'DWord' -Force;
+	$params = @{
+		LiteralPath = 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent';
+		Name = 'AccentPalette';
+	};
+	$palette = Get-ItemPropertyValue @params;
+	$index = 20;
+	$palette[ $index++ ] = $accentColor.R;
+	$palette[ $index++ ] = $accentColor.G;
+	$palette[ $index++ ] = $accentColor.B;
+	$palette[ $index++ ] = $accentColor.A;
+	Set-ItemProperty @params -Value $palette -Type 'Binary' -Force;
+};
+		</File>
+		<File path="C:\Windows\Setup\Scripts\SetWallpaper.ps1">
+$htmlColor = '#6366F1';
+Add-Type -TypeDefinition '
+	using System.Drawing;
+	using System.Runtime.InteropServices;
+	
+	public static class ColorSetter {
+		[DllImport("user32.dll")]
+		private static extern bool SetSysColors(
+			int cElements, 
+			int[] lpaElements,
+			int[] lpaRgbValues
+		);
+
+		[DllImport("user32.dll")]
+		private static extern bool SystemParametersInfo(
+			uint uiAction,
+			uint uiParam,
+			string pvParam,
+			uint fWinIni
+		);
+
+		public static void SetDesktopBackground(Color color) {
+			SystemParametersInfo(20, 0, "", 0);
+			SetSysColors(1, new int[] { 1 }, new int[] { ColorTranslator.ToWin32(color) });
+		}
+	}
+' -ReferencedAssemblies 'System.Drawing';
+
+$color = [System.Drawing.ColorTranslator]::FromHtml( $htmlColor );
+[ColorSetter]::SetDesktopBackground( $color );
+Set-ItemProperty -Path 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Wallpapers' -Name 'BackgroundType' -Type 'DWord' -Value 1 -Force;
+Set-ItemProperty -Path 'Registry::HKCU\Control Panel\Desktop' -Name 'WallPaper' -Type 'String' -Value '' -Force;
+Set-ItemProperty -Path 'Registry::HKCU\Control Panel\Colors' -Name 'Background' -Type 'String' -Value "$($color.R) $($color.G) $($color.B)" -Force;
+		</File>
+		<File path="C:\Windows\Setup\Scripts\unattend-01.ps1">
+winget install Microsoft.WindowsTerminal --silent --disable-interactivity --accept-package-agreements --accept-source-agreements
+winget install Microsoft.PowerShell --silent --disable-interactivity --accept-package-agreements --accept-source-agreements
+winget install Git.Git --silent --disable-interactivity --accept-package-agreements --accept-source-agreements
+		</File>
+		<File path="C:\Windows\Setup\Scripts\unattend-02.ps1">
+Set-Location $env:USERPROFILE\Downloads
+git clone https://github.com/lpndev/wpis.git
+		</File>
+		<File path="C:\Windows\Setup\Scripts\UserOnce.ps1">
+$scripts = @(
+	{
+		Get-AppxPackage -Name 'Microsoft.Windows.Ai.Copilot.Provider' | Remove-AppxPackage;
+	};
+	{
+		Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\TaskbarIcons.ps1' -Raw | Invoke-Expression;
+	};
+	{
+		$params = @{
+			Path = 'Registry::HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32';
+			ErrorAction = 'SilentlyContinue';
+			Force = $true;
+		};
+		New-Item @params;
+		Set-ItemProperty @params -Name '(Default)' -Value '' -Type 'String';
+	};
+	{
+		Set-ItemProperty -LiteralPath 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'LaunchTo' -Type 'DWord' -Value 1;
+	};
+	{
+		Set-ItemProperty -LiteralPath 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Search' -Name 'SearchboxTaskbarMode' -Type 'DWord' -Value 0;
+	};
+	{
+		Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\SetColorTheme.ps1' -Raw | Invoke-Expression;
+	};
+	{
+		Get-Content -LiteralPath 'C:\Windows\Setup\Scripts\SetWallpaper.ps1' -Raw | Invoke-Expression;
+	};
+	{
+		Get-Process -Name 'explorer' -ErrorAction 'SilentlyContinue' | Where-Object -FilterScript {
+			$_.SessionId -eq ( Get-Process -Id $PID ).SessionId;
+		} | Stop-Process -Force;
+	};
+);
+
+&amp; {
+	[int] $complete = 0;
+	foreach( $script in $scripts ) {
+		Write-Progress -Activity 'Running scripts to configure this user account. Do not close this window.' -PercentComplete $complete;
+		&amp; $script;
+		$complete += 100 / $scripts.Count;
+	}
+} *&gt;&amp;1 &gt;&gt; "$env:TEMP\UserOnce.log";
+		</File>
+	</Extensions>
+</unattend>
