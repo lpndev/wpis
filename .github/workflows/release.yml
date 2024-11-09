@@ -19,13 +19,13 @@ jobs:
           cp -r config scripts main.ps1 wpis/
 
       - name: Create ZIP archive
-        run: zip -r release.zip wpis
+        run: zip -r wpis.zip wpis
 
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          files: release.zip
+          files: wpis.zip
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
