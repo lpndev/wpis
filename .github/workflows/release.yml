@@ -21,11 +21,21 @@ jobs:
       - name: Create ZIP archive
         run: zip -r wpis.zip wpis
 
+      - name: Generate checksums
+        run: |
+          echo "SHA256:" > checksums.txt
+          sha256sum wpis.zip >> checksums.txt
+          echo -e "\nSHA512:" >> checksums.txt
+          sha512sum wpis.zip >> checksums.txt
+
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          files: wpis.zip
+          files: |
+            wpis.zip
+            checksums.txt
+          name: Release ${{ github.ref_name }}
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
