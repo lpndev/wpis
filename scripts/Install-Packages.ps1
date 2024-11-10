@@ -61,7 +61,7 @@ function Install-Packages {
     return
   }
 
-  $totalPackages = ($packages.Values | Measure-Object -Sum).Sum
+  $totalPackages = ($packages.Values | ForEach-Object { $_.Count } | Measure-Object -Sum).Sum
   $progress = 0
 
   foreach ($category in $packages.Keys | Sort-Object) {
@@ -69,7 +69,8 @@ function Install-Packages {
     foreach ($package in $packages[$category]) {
       $progress++
       $status = "Installing package: $package"
-      Write-Progress -Activity "Installing Packages" -Status $status -PercentComplete (($progress / $totalPackages) * 100)
+      $percentComplete = [math]::Min(($progress / $totalPackages) * 100, 100)
+      Write-Progress -Activity "Installing Packages" -Status $status -PercentComplete $percentComplete
 
       try {
         $installed = winget list --id $package --accept-source-agreements | Select-String -Pattern "^$package"
@@ -88,6 +89,7 @@ function Install-Packages {
       }
       catch {
         Write-Host "Error installing package: $package" -ForegroundColor Red
+        Write-Host $_.Exception.Message
       }
     }
   }
