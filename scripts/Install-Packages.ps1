@@ -61,9 +61,31 @@ function Install-Packages {
     return
   }
 
+  # Download and install Visual C++ Redistributable AIO package
+  $vcRedistUrl = "https://github.com/abbodi1406/vcredist/releases/latest/download/VisualCppRedist_AIO_x86_x64.exe"
+  $vcRedistPath = Join-Path $env:TEMP "VisualCppRedist_AIO_x86_x64.exe"
+
+  Write-Host "Downloading Visual C++ Redistributable AIO package..." -ForegroundColor Cyan
+  try {
+    Invoke-WebRequest -Uri $vcRedistUrl -OutFile $vcRedistPath
+    Write-Host "Download completed." -ForegroundColor Green
+
+    Write-Host "Installing Visual C++ Redistributable AIO package..." -ForegroundColor Cyan
+    Start-Process -FilePath $vcRedistPath -ArgumentList "/ai /gm2" -Wait -NoNewWindow
+    Write-Host "Installation completed." -ForegroundColor Green
+
+    # Clean up the downloaded file
+    Remove-Item -Path $vcRedistPath -Force
+  }
+  catch {
+    Write-Host "Error downloading or installing Visual C++ Redistributable AIO package." -ForegroundColor Red
+    Write-Host $_.Exception.Message
+  }
+
   $totalPackages = ($packages.Values | ForEach-Object { $_.Count } | Measure-Object -Sum).Sum
   $progress = 0
 
+  # Install winget packages
   foreach ($category in $packages.Keys | Sort-Object) {
     Write-Host "Installing $category packages..." -ForegroundColor Cyan
     foreach ($package in $packages[$category]) {
