@@ -16,7 +16,7 @@ jobs:
       - name: Create release folder
         run: |
           mkdir -p wpis
-          cp -r config scripts main.ps1 README.md wpis/
+          rsync -av --exclude 'config/setup' config scripts main.ps1 README.md wpis/
 
       - name: Create ZIP archive
         run: zip -r wpis.zip wpis
