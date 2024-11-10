@@ -21,9 +21,9 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 }
 
 # Source the function scripts
-. "scripts\New-Folders.ps1"
-. "scripts\Add-ToQuickAccess.ps1"
-. "scripts\Install-Packages.ps1"
+. "$PSScriptRoot\scripts\New-Folders.ps1"
+. "$PSScriptRoot\scripts\Add-QuickAccess.ps1"
+. "$PSScriptRoot\scripts\Install-Packages.ps1"
 
 # Run the functions
 New-Folders
