@@ -11,7 +11,7 @@ For detailed documentation, visit the [**Wiki**](https://github.com/lpndev/wpis/
 2. Or remotely:
 
 ```powershell
-curl 'https://github.com/lpndev/wpis/releases/latest/download/wpis.zip' -o "$env:USERPROFILE\Downloads\wpis.zip"
+Invoke-WebRequest -Uri 'https://github.com/lpndev/wpis/releases/latest/download/wpis.zip' -OutFile "$env:USERPROFILE\Downloads\wpis.zip"
 ```
 
 ### Run
