@@ -2,64 +2,56 @@ function Add-ToQuickAccess {
   $shell = New-Object -ComObject Shell.Application
   $quickAccess = $shell.Namespace("shell:::{679f85cb-0220-4080-b29b-5540cc05aab6}").Items()
 
-  $foldersToPin = @(
-    "Games",
-    "Portable",
-    "Virtual-Machines"
+  $itemsToPin = @(
+    @{Name = "Games"; Path = Join-Path $env:USERPROFILE "Games" },
+    @{Name = "Portable"; Path = Join-Path $env:USERPROFILE "Portable" },
+    @{Name = "Virtual-Machines"; Path = Join-Path $env:USERPROFILE "Virtual-Machines" },
+    @{Name = "Recycle Bin"; Path = "shell:RecycleBinFolder" }  # Updated path for Recycle Bin
   )
 
-  $confirm = Read-Host "Do you want to pin folders to Quick Access? (Y/N)"
+  $confirm = Read-Host "Do you want to pin items to Quick Access? (Y/N)"
   if ($confirm -ne 'Y') {
-    Write-Host "Skipping pinning folders to Quick Access." -ForegroundColor Yellow
+    Write-Host "Skipping pinning items to Quick Access." -ForegroundColor Yellow
     return
   }
 
-  $progress = 0
-  $totalItems = $foldersToPin.Count + 1  # +1 for Recycle Bin
+  function Pin-Item($name, $path) {
+    $status = "Pinning item: $name"
+    Write-Progress -Activity "Pinning to Quick Access" -Status $status
 
-  foreach ($folder in $foldersToPin) {
-    $progress++
-    $status = "Pinning folder: $folder"
-    Write-Progress -Activity "Pinning to Quick Access" -Status $status -PercentComplete (($progress / $totalItems) * 100)
+    if ($quickAccess | Where-Object { $_.Name -eq $name }) {
+      Write-Host "Item already pinned: $name" -ForegroundColor Yellow
+      return
+    }
 
-    $path = Join-Path $env:USERPROFILE $folder
-    if (Test-Path $path) {
-      $item = $shell.Namespace($path).Self
-      if ($quickAccess | Where-Object { $_.Path -eq $item.Path }) {
-        Write-Host "Folder already pinned: $path" -ForegroundColor Yellow
+    try {
+      if ($name -eq "Recycle Bin") {
+        $folder = $shell.Namespace($path)
+        $folder.Self.InvokeVerb("pintohome")
       }
       else {
-        try {
+        if (Test-Path $path) {
+          $item = $shell.Namespace($path).Self
           $item.InvokeVerb("pintohome")
-          Write-Host "Pinned folder to Quick Access: $path" -ForegroundColor Green
         }
-        catch {
-          Write-Host "Error pinning folder to Quick Access: $path" -ForegroundColor Red
+        else {
+          Write-Host "Item not found: $path" -ForegroundColor Red
+          return
         }
       }
-    }
-    else {
-      Write-Host "Folder not found: $path" -ForegroundColor Red
-    }
-  }
-
-  # Pin Recycle Bin
-  $progress++
-  $status = "Pinning Recycle Bin"
-  Write-Progress -Activity "Pinning to Quick Access" -Status $status -PercentComplete (($progress / $totalItems) * 100)
-
-  $recycleBin = $shell.Namespace(0xA).Items() | Where-Object { $_.Name -eq "Recycle Bin" }
-  if ($quickAccess | Where-Object { $_.Name -eq "Recycle Bin" }) {
-    Write-Host "Recycle Bin already pinned" -ForegroundColor Yellow
-  }
-  else {
-    try {
-      $recycleBin.InvokeVerb("pintohome")
-      Write-Host "Pinned Recycle Bin to Quick Access" -ForegroundColor Green
+      Write-Host "Pinned item to Quick Access: $name" -ForegroundColor Green
     }
     catch {
-      Write-Host "Error pinning Recycle Bin to Quick Access" -ForegroundColor Red
+      Write-Host "Error pinning item to Quick Access: $name" -ForegroundColor Red
+      Write-Host $_.Exception.Message
     }
+  }
+
+  $totalItems = $itemsToPin.Count
+  for ($i = 0; $i -lt $totalItems; $i++) {
+    $item = $itemsToPin[$i]
+    Pin-Item $item.Name $item.Path
+    Write-Progress -Activity "Pinning to Quick Access" -Status "Processing items" -PercentComplete (($i + 1) / $totalItems * 100)
   }
 
   Write-Progress -Activity "Pinning to Quick Access" -Completed
