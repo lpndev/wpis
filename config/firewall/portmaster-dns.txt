@@ -1,2 +1,2 @@
-dot://76.76.2.2:853?verify=p2.freedns.controld.com&name=ControlD&blockedif=empty
-dot://76.76.10.2:853?verify=p2.freedns.controld.com&name=ControlD&blockedif=empty
+dot://dns.quad9.net?ip=9.9.9.9&name=Quad9&blockedif=empty
+dot://dns.quad9.net?ip=149.112.112.112&name=Quad9&blockedif=empty

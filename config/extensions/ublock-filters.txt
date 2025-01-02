@@ -1,9 +1,3 @@
 https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts
 https://raw.githubusercontent.com/gijsdev/ublock-hide-yt-shorts/master/list.txt
-https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/doh-vpn-proxy-bypass.txt
-https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/fake.txt
-https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/hoster.txt
-https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/popupads.txt
 https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.plus.txt
-https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/spam-tlds-ublock.txt
-https://raw.githubusercontent.com/hagezi/dns-blocklists/main/hosts/tif.txt
