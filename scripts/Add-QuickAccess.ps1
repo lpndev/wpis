@@ -15,7 +15,7 @@ function Add-ToQuickAccess {
     return
   }
 
-  function Pin-Item($name, $path) {
+  function Set-PinItem($name, $path) {
     $status = "Pinning item: $name"
     Write-Progress -Activity "Pinning to Quick Access" -Status $status
 
@@ -50,7 +50,7 @@ function Add-ToQuickAccess {
   $totalItems = $itemsToPin.Count
   for ($i = 0; $i -lt $totalItems; $i++) {
     $item = $itemsToPin[$i]
-    Pin-Item $item.Name $item.Path
+    Set-PinItem $item.Name $item.Path
     Write-Progress -Activity "Pinning to Quick Access" -Status "Processing items" -PercentComplete (($i + 1) / $totalItems * 100)
   }
 
