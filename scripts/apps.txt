@@ -1,0 +1,9 @@
+EclipseAdoptium.Temurin.17.JRE
+EclipseAdoptium.Temurin.21.JRE
+EclipseAdoptium.Temurin.8.JRE
+Git.Git
+Microsoft.DirectX
+Microsoft.PowerShell
+Microsoft.XNARedist"
+OpenAL.OpenAL
+M2Team.NanaZip
