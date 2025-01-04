@@ -16,7 +16,11 @@ jobs:
       - name: Create release folder
         run: |
           mkdir -p wpis
-          rsync -av --exclude 'config/setup' config scripts main.ps1 README.md wpis/
+          cp -r config folders scripts main.ps1 README.md wpis/
+
+      - name: Remove .gitkeep files
+        run: |
+          find wpis -name ".gitkeep" -type f -delete
 
       - name: Create ZIP archive
         run: zip -r wpis.zip wpis
