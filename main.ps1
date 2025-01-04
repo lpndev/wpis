@@ -2,34 +2,29 @@
 .SYNOPSIS
     Main script to set up user environment and install packages.
 .DESCRIPTION
-    This script creates folders, pins them to Quick Access, and installs packages using winget.
+    This script move all folders inside folders/ directory, pins them to Quick Access (including the Recycle Bin), configure O&O ShutUp10++ with recommended settings and installs essentials packages and some using Winget.
     It must be run as an administrator.
 #>
 
-# Check if running as administrator
-if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-  Write-Host "This script needs to be run as an Administrator. Attempting to restart..." -ForegroundColor Yellow
-  Start-Sleep -Seconds 1
-  try {
-    Start-Process pwsh.exe -Verb RunAs -ArgumentList "-File `"$PSCommandPath`""
+#Requires -RunAsAdministrator
+
+# Get the directory of the current script
+$ScriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
+# Get all .ps1 files in the scripts folder and sort them alphabetically
+$Scripts = Get-ChildItem -Path "$ScriptPath\scripts\*.ps1" | Sort-Object Name
+
+# Loop through each script and ask user if they want to run it
+foreach ($Script in $Scripts) {
+  $Response = Read-Host "Run $($Script.Name)? (Y/n)"
+  if ($Response -eq '' -or $Response -eq 'y' -or $Response -eq 'Y') {
+    . $Script.FullName
   }
-  catch {
-    Write-Host "Failed to restart as Administrator. Please run this script as an Administrator." -ForegroundColor Red
-    Start-Sleep -Seconds 5
-  }
-  exit
 }
 
-# Source the function scripts
-. "$PSScriptRoot\scripts\New-Folders.ps1"
-. "$PSScriptRoot\scripts\Add-QuickAccess.ps1"
-. "$PSScriptRoot\scripts\Install-Packages.ps1"
+# Ask if user wants to run Chris Titus Tech script
+$Response = Read-Host "Run Chris Titus Tech script? (Y/n)"
+if ($Response -eq '' -or $Response -eq 'y' -or $Response -eq 'Y') {
+  irm "https://christitus.com/win" | iex
+}
 
-# Run the functions
-New-Folders
-Add-ToQuickAccess
-Install-Packages
-
-# Run Chris Titus Tech script
-Write-Host "Running Chris Titus Tech script..." -ForegroundColor Cyan
-Invoke-RestMethod "https://christitus.com/win" | Invoke-Expression
+Write-Output "Main script execution completed successfully."
