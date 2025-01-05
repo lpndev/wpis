@@ -2,8 +2,12 @@ EclipseAdoptium.Temurin.17.JRE
 EclipseAdoptium.Temurin.21.JRE
 EclipseAdoptium.Temurin.8.JRE
 Git.Git
+M2Team.NanaZip
 Microsoft.DirectX
 Microsoft.PowerShell
-Microsoft.XNARedist"
+Microsoft.PowerToys
+Microsoft.Sysinternals.Autoruns
+Microsoft.Sysinternals.ProcessExplorer
+Microsoft.Sysinternals.ProcessMonitor
+Microsoft.XNARedist
 OpenAL.OpenAL
-M2Team.NanaZip
