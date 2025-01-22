@@ -5,7 +5,7 @@ $OosuUrl = "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe"
 # Set path for downloaded OOSU10 executable
 $OosuExe = Join-Path $TempPath "OOSU10.exe"
 # Set path for OOSU10 configuration file
-$ConfigPath = Join-Path (Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)) "config\import\ooshutup10.cfg"
+$ConfigPath = Join-Path (Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)) "config\ooshutup10.cfg"
 
 # Download OOSU10
 Invoke-WebRequest -Uri $OosuUrl -OutFile $OosuExe
