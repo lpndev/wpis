@@ -1,3 +1,2 @@
 https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts
-https://raw.githubusercontent.com/gijsdev/ublock-hide-yt-shorts/master/list.txt
 https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.plus.txt
