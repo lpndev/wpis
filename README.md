@@ -11,13 +11,7 @@ For detailed documentation, visit the [**Wiki**](https://github.com/lpndev/wpis/
 2. Or remotely:
 
 ```powershell
-Invoke-WebRequest -Uri 'https://github.com/lpndev/wpis/releases/latest/download/wpis.zip' -OutFile "$env:USERPROFILE\Downloads\wpis.zip"
-```
-
-### Run
-
-```powershell
-powershell.exe -ExecutionPolicy Bypass -File .\main.ps1
+iwr -Uri 'https://github.com/lpndev/wpis/releases/latest/download/wpis.zip' -OutFile "$env:USERPROFILE\Downloads\wpis.zip"; Expand-Archive "$env:USERPROFILE\Downloads\wpis.zip" -DestinationPath "$env:USERPROFILE\Downloads\wpis" -Force; powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\wpis\main.ps1"
 ```
 
 ## License
