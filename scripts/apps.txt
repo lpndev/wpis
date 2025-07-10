@@ -1,9 +1,8 @@
-EclipseAdoptium.Temurin.17.JRE
-EclipseAdoptium.Temurin.21.JRE
-EclipseAdoptium.Temurin.8.JRE
+EclipseAdoptium.Temurin.17.JDK
+EclipseAdoptium.Temurin.21.JDK
+EclipseAdoptium.Temurin.8.JDK
 Git.Git
 M2Team.NanaZip
 Microsoft.DirectX
 Microsoft.PowerShell
-Microsoft.PowerToys
 OpenAL.OpenAL
