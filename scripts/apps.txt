@@ -1,4 +1,3 @@
-EclipseAdoptium.Temurin.17.JDK
 EclipseAdoptium.Temurin.21.JDK
 EclipseAdoptium.Temurin.8.JDK
 Git.Git
