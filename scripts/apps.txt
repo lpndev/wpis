@@ -1,7 +1,7 @@
 EclipseAdoptium.Temurin.21.JDK
 EclipseAdoptium.Temurin.8.JDK
-Git.Git
-M2Team.NanaZip
 Microsoft.DirectX
 Microsoft.PowerShell
 OpenAL.OpenAL
+Git.Git
+M2Team.NanaZip
