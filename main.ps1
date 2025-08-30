@@ -1,28 +1,43 @@
 <#
 .SYNOPSIS
-    Main script to set up user environment and install packages.
+  Web-based main script to set up user environment and install packages.
 .DESCRIPTION
-    This script move all folders inside folders/ directory, pins them to Quick Access (including the Recycle Bin), configure O&O ShutUp10++ with recommended settings and installs essentials packages and some using Winget.
-    It must be run as an administrator.
+  Fetches and executes setup scripts directly from GitHub Pages:
+  - Configure Quick Access, O&O ShutUp10++, privacy tweaks, etc.
+  - Installs essential software packages via Winget
+  - Optionally runs Chris Titus Tech WinUtil with custom config
+  Nothing is required locally except PowerShell + Winget.
+  It must be run as an administrator.
 #>
 
 #Requires -RunAsAdministrator
 
-$ScriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path # Get the directory of the current script
-$Scripts = Get-ChildItem -Path "$ScriptPath\scripts\*.ps1" | Sort-Object Name # Get all .ps1 files in the scripts folder and sort them alphabetically
+$BaseUrl = 'https://lpndev.github.io/wpis/scripts'
 
-# Loop through each script and ask user if they want to run it
-foreach ($Script in $Scripts) {
-  $Response = Read-Host "Run $($Script.Name)? (Y/n)"
-  if ([string]::IsNullOrEmpty($Response) -or $Response.ToLower() -eq 'y') {
-    . $Script.FullName
+function Invoke-RemoteScript {
+  param ([string]$Name)
+  $Url = "$BaseUrl/$Name"
+  try {
+    Write-Output "Fetching and executing $Name..."
+    Invoke-Expression (Invoke-WebRequest -Uri $Url -UseBasicParsing).Content
+  }
+  catch {
+    Write-Warning "Failed to execute $Name from $Url"
   }
 }
 
-# Ask if user wants to run Chris Titus Tech script
-$Response = Read-Host 'Run Chris Titus Tech script? (Y/n)'
-if ([string]::IsNullOrEmpty($Response) -or $Response.ToLower() -eq 'y') {
-  Invoke-RestMethod 'https://christitus.com/win' | Invoke-Expression
+# List of scripts to run (in order)
+$Scripts = @(
+  'Install-Packages.ps1',
+  'Configure-OOSU10.ps1',
+  'Winutil-Configuration.ps1'
+)
+
+foreach ($Script in $Scripts) {
+  $Response = Read-Host "Run $Script? (Y/n)"
+  if ([string]::IsNullOrEmpty($Response) -or $Response.ToLower() -eq 'y') {
+    Invoke-RemoteScript -Name $Script
+  }
 }
 
 Write-Output 'Main script execution completed successfully.'

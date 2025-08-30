@@ -1,2 +1,0 @@
-https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts
-https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.plus.txt

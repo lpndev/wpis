@@ -4,10 +4,15 @@ if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
   exit 1
 }
 
-# Variables
-$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$AppsFile = Join-Path $ScriptDir 'apps.txt'
-$Apps = Get-Content $AppsFile
+# Load apps.txt from GitHub
+$AppsUrl = 'https://lpndev.github.io/wpis/scripts/apps.txt'
+try {
+  $Apps = (Invoke-RestMethod -Uri $AppsUrl) -split '\r?\n'
+}
+catch {
+  Write-Error "Failed to fetch apps.txt from $AppsUrl"
+  exit 1
+}
 
 # Ask user about Visual C++ Redistributable
 $InstallVcRedist = Read-Host 'Do you want to download and install Visual C++ Redistributable? (Y/n)'
@@ -17,25 +22,35 @@ if ([string]::IsNullOrEmpty($InstallVcRedist) -or $InstallVcRedist.ToLower() -eq
   $VcRedistUrl = 'https://github.com/abbodi1406/vcredist/releases/latest/download/VisualCppRedist_AIO_x86_x64.exe'
   $VcRedistInstaller = Join-Path $TempPath 'VisualCppRedist_AIO_x86_x64.exe'
 
-  # Download Visual C++ Redistributable
-  Write-Output 'Downloading Visual C++ Redistributable...'
-  Invoke-WebRequest -Uri $VcRedistUrl -OutFile $VcRedistInstaller
+  try {
+    Write-Output 'Downloading Visual C++ Redistributable...'
+    Invoke-WebRequest -Uri $VcRedistUrl -OutFile $VcRedistInstaller -ErrorAction Stop
 
-  # Install Visual C++ Redistributable
-  Write-Output 'Installing Visual C++ Redistributable...'
-  Start-Process -FilePath $VcRedistInstaller -ArgumentList '/ai /gm2' -Wait
+    Write-Output 'Installing Visual C++ Redistributable...'
+    Start-Process -FilePath $VcRedistInstaller -ArgumentList '/ai /gm2' -Wait
 
-  # Remove Visual C++ Redistributable installer
-  Remove-Item -Path $VcRedistInstaller -Force
-  Write-Output 'Visual C++ Redistributable installation completed.'
+    Remove-Item -Path $VcRedistInstaller -Force
+    Write-Output 'Visual C++ Redistributable installation completed.'
+  }
+  catch {
+    Write-Warning 'Failed to install Visual C++ Redistributable.'
+  }
 }
 else {
   Write-Output 'Skipping Visual C++ Redistributable installation.'
 }
 
-# Install each app from the apps.txt list using Winget
+# Install each app with progress tracking
+$i = 0
 foreach ($App in $Apps) {
-  winget install $App --silent --accept-package-agreements --accept-source-agreements
+  $i++
+  Write-Progress -Activity 'Installing applications...' -Status $App -PercentComplete (($i / $Apps.Count) * 100)
+  try {
+    winget install $App --silent --accept-package-agreements --accept-source-agreements -e
+  }
+  catch {
+    Write-Warning "Failed to install $App"
+  }
 }
 
 Write-Output 'Packages installation completed successfully.'

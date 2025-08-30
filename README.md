@@ -1,25 +1,26 @@
-## Documentation
+# Windows Post Install Scripts
 
-For detailed documentation, visit the [**Wiki**](https://github.com/lpndev/wpis/wiki) tab.
+WPIS (Windows Post Install Scripts) is a PowerShell-based setup tool designed to streamline and optimize a fresh Windows installation.
 
-## Getting Started
+It helps users debloat unnecessary apps, automatically configure privacy and security settings, apply recommended tweaks with **O&O ShutUp10++**, and install essential software packages via **Winget**. For additional customization, it can also run the [Chris Titus Tech Windows Utility](https://christitus.com/win).
 
-### Download
+In short, WPIS reduces the time and effort needed after a clean Windows install by automating repetitive setup tasks.
 
-1. From **[releases page](https://github.com/lpndev/wpis/releases)**
+## 🚀 Getting Started
 
-2. Or remotely:
+### Prerequisites
+
+- Windows 10 or Windows 11
+- Run PowerShell as **Administrator**
+- Winget (test with `winget -v` to confirm it is installed)
+- Internet connection (for downloading scripts and packages)
+
+### Launch Command
 
 ```powershell
-Invoke-WebRequest -Uri 'https://github.com/lpndev/wpis/releases/latest/download/wpis.zip' -OutFile "$env:USERPROFILE\Downloads\wpis.zip"; Expand-Archive "$env:USERPROFILE\Downloads\wpis.zip" -DestinationPath "$env:USERPROFILE\Downloads" -Force; powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\wpis\main.ps1"
-```
-
-### Run CTT Script
-
-```powershell
-irm "https://christitus.com/win" | iex
+irm "https://lpndev.github.io/wpis/main.ps1" | iex
 ```
 
 ## License
 
-Licensed under the [MIT](https://github.com/lpndev/emu-starter/blob/main/LICENSE) license.
+Licensed under the [MIT](https://github.com/lpndev/wpis/blob/main/LICENSE) license.
