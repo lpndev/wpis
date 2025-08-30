@@ -16,13 +16,15 @@ $BaseUrl = 'https://lpndev.github.io/wpis/scripts'
 
 function Invoke-RemoteScript {
   param ([string]$Name)
+
   $Url = "$BaseUrl/$Name"
   try {
     Write-Output "Fetching and executing $Name..."
-    Invoke-Expression (Invoke-WebRequest -Uri $Url -UseBasicParsing).Content
+    $ScriptContent = (Invoke-WebRequest -Uri $Url -UseBasicParsing).Content
+    Invoke-Expression $ScriptContent
   }
   catch {
-    Write-Warning "Failed to execute $Name from $Url"
+    Write-Warning "Failed to execute $Name from $Url. Check your internet connection and try again."
   }
 }
 
@@ -34,7 +36,7 @@ $Scripts = @(
 )
 
 foreach ($Script in $Scripts) {
-  $Response = Read-Host "Run $Script? (Y/n)"
+  $Response = Read-Host "Do you want to run $Script? [Y/n]"
   if ([string]::IsNullOrEmpty($Response) -or $Response.ToLower() -eq 'y') {
     Invoke-RemoteScript -Name $Script
   }
