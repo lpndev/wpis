@@ -5,6 +5,11 @@ Microsoft.DirectX
 Microsoft.XNARedist
 Microsoft.WindowsTerminal
 Microsoft.PowerShell
+Microsoft.Sysinternals.Suite
 OpenAL.OpenAL
-Git.Git
 7zip.7zip
+Git.Git
+MartiCliment.UniGetUI
+Sandboxie.Plus
+voidtools.Everything
+WinDirStat.WinDirStat
