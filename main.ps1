@@ -103,13 +103,13 @@ function Invoke-WinUtil {
 
   Write-Output 'Launching WinUtil with custom configuration...'
   try {
-    $cmd = "& { `$(irm https://christitus.com/win) } -Config `"$ConfigFile`" -Run"
-    Invoke-Expression $cmd
+    Invoke-Expression "& { $(Invoke-RestMethod https://christitus.com/win) } -Config '$ConfigFile' -Run"
   }
   catch {
     Write-Warning "Failed to run WinUtil with config: $($_)"
   }
 }
+
 
 # Main Execution
 try {
