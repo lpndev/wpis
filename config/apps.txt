@@ -9,5 +9,3 @@ OpenAL.OpenAL
 7zip.7zip
 Git.Git
 MartiCliment.UniGetUI
-voidtools.Everything
-WinDirStat.WinDirStat
